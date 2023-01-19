@@ -1,6 +1,6 @@
-# Dapr Service Invocation 
+# Microservice communication using service invoke (sync)
 
-In this quickstart, you'll create two microservices that communivate using Dapr's service invocation API. With Dapr’s Service Invocation API, your application can communicate reliably and securely with other applications.
+In this quickstart, you'll create two microservices that communicate using Dapr's Service Invocation API. The Service Invocation API enables your applications to communicate reliably and securely by leveraging auto-mTLS and built-in retries.
 
 ![](images/service-invocation-quickstart.png)
 
@@ -8,40 +8,40 @@ Visit [this](https://docs.dapr.io/developing-applications/building-blocks/servic
 
 # Run and develop locally
 
-### Run the Javascript order-processor service (callee) with Dapr
+### Run the order-processor service (callee) with Dapr
 
-2. Open a new terminal window, change directories to `./order-processor` in the quickstart directory and run: 
+2. Open a new terminal window, change directories to `./order-processor` and run: 
 
 ```bash
-cd ../order-processor
+cd order-processor
 npm install
 ```
 
-3. Run the Javascript order-processor service (callee) app with Dapr: 
+3. Run the order-processor service (callee) service with Dapr: 
 
 ```bash
 dapr run --app-port 5001 --app-id order-processor --app-protocol http --dapr-http-port 3501 -- npm start
 ```
 
-### Run the Javascript checkout service (caller) with Dapr
+### Run the checkout service (caller) with Dapr
 
-2. Open a new terminal window, change directories to `./checkout` in the quickstart directory and run: 
+2. Open a new terminal window, change directories to `./checkout` and run: 
 
 ```bash
-cd ../checkout
+cd checkout
 npm install
 ```
 
-3. Run the Javascript checkout service (callee) app with Dapr: 
+3. Run the checkout service (callee) service with Dapr: 
 
 ```bash
 dapr run  --app-id checkout --app-protocol http --dapr-http-port 3500 -- npm start
 ```
 
 4. Expected output:
-In both terminals, you will see orders passed and orders received. Service invocation requests are made from the checkout service to the order-processor service: 
+In both terminals, you'll see orders passed and orders received. Service invocation requests are made from the checkout service to the order-processor service: 
 
-From the checkout service:
+Output from the checkout service:
 ```bash
 == APP == Order passed: {"orderId":1}
 == APP == Order passed: {"orderId":2}
@@ -49,7 +49,7 @@ From the checkout service:
 == APP == Order passed: {"orderId":4}
 ```
 
-From the order-processor service:
+Output from the order-processor service:
 ```bash
 == APP == Order received: { orderId: 1 }
 == APP == Order received: { orderId: 2 }
