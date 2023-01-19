@@ -31,7 +31,7 @@ module containerAppHttp '../core/containerapp-http.bicep' = {
     containerName: containerName
     imageName: imageName != '' ? imageName : 'nginx:latest'
     ingressPort: ingressPort
-    tags: union(tags, { 'azd-service-name': 'order-processor-svc' })
+    tags: union(tags, { 'azd-service-name': 'order-processor' })
   }
 }
 

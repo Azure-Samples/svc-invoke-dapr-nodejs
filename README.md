@@ -69,7 +69,8 @@ azd up
 
 2. Confirm the deployment is susccessful:
 
-Navigate to the Container App resource for the Batch service. Locate the `Log stream` and confirm the batch container is logging each insert successfully every 10s. 
+Navigate to the Container App resources for both the Checkout and Order-Processor services. Locate the `Log stream` and confirm the app container is logging each request successfully. 
 
-![](images/log_stream.png)
+![](images/log_stream_checkout.png)
+![](images/log_stream_orders.png)
 
