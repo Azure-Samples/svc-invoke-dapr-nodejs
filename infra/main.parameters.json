@@ -7,9 +7,6 @@
         },
         "location": {
             "value": "${AZURE_LOCATION}"
-        },
-        "postgresPassword": {
-            "value": "${POSTGRES_PASSWORD}"
         }
     }
 }
