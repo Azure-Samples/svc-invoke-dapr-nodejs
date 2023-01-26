@@ -11,14 +11,19 @@ async function main() {
     }
   };
   
-  for(var i = 1; i <= 20; i++) {
-    const order = {orderId: i};
+  while (true) {
+    for (var i = 1; i <= 20; i++) {
+      const order = {
+        orderId: i
+      };
 
-    // Invoking a service
-    const res = await axios.post(`${DAPR_HOST}:${DAPR_HTTP_PORT}/orders`, order , axiosConfig);
-    console.log("Order passed: " + res.config.data);
+      // Invoking a service
+      const res = await axios.post(`${DAPR_HOST}:${DAPR_HTTP_PORT}/orders`, order, axiosConfig);
+      console.log("Order passed: " + res.config.data);
 
-    await sleep(1000);
+      await sleep(1000);
+    }
+    await sleep(20000);
   }
 }
 
