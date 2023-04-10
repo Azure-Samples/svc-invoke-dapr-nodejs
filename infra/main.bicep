@@ -56,10 +56,12 @@ module appEnv './app/app-env.bicep' = {
     containerRegistryName: !empty(containerRegistryName) ? containerRegistryName : '${abbrs.containerRegistryRegistries}${resourceToken}'
     location: location
     logAnalyticsWorkspaceName: monitoring.outputs.logAnalyticsWorkspaceName
+    applicationInsightsName: monitoring.outputs.applicationInsightsName
+    isDaprEnabled: true
   }
 }
 
-// Worker 
+// Worker
 module worker './app/worker.bicep' = {
   name: workerServiceName
   scope: rg
@@ -67,7 +69,6 @@ module worker './app/worker.bicep' = {
     name: !empty(workerContainerAppName) ? workerContainerAppName : '${abbrs.appContainerApps}${workerServiceName}-${resourceToken}'
     location: location
     imageName: workerImageName
-    applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appEnv.outputs.environmentName
     containerRegistryName: appEnv.outputs.registryName
     serviceName: workerServiceName
@@ -82,7 +83,6 @@ module api './app/api.bicep' = {
     name: !empty(apiContainerAppName) ? apiContainerAppName : '${abbrs.appContainerApps}${apiServiceName}-${resourceToken}'
     location: location
     imageName: apiImageName
-    applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appEnv.outputs.environmentName
     containerRegistryName: appEnv.outputs.registryName
     serviceName: apiServiceName
