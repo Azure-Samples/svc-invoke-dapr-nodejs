@@ -6,6 +6,7 @@ param containerAppsEnvironmentName string
 param containerRegistryName string
 param imageName string = ''
 param serviceName string = 'order-processor'
+param managedIdentityName string = ''
 
 module app '../core/host/container-app.bicep' = {
   name: '${serviceName}-container-app-module'
@@ -18,9 +19,11 @@ module app '../core/host/container-app.bicep' = {
     containerCpuCoreCount: '1.0'
     containerMemory: '2.0Gi'
     imageName: !empty(imageName) ? imageName : 'nginx:latest'
-    isDaprEnabled: true
+    daprEnabled: true
     containerName: serviceName
     targetPort: 5001
+    managedIdentityEnabled: true
+    managedIdentityName: managedIdentityName
   }
 }
 

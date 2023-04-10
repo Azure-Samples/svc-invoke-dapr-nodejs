@@ -4,7 +4,7 @@ param tags object = {}
 
 param logAnalyticsWorkspaceName string
 param applicationInsightsName string = ''
-param isDaprEnabled bool = false
+param daprEnabled bool = false
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   name: name
@@ -18,7 +18,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
         sharedKey: logAnalyticsWorkspace.listKeys().primarySharedKey
       }
     }
-    daprAIInstrumentationKey: isDaprEnabled && applicationInsightsName != '' ? applicationInsights.properties.InstrumentationKey : ''
+    daprAIInstrumentationKey: daprEnabled && applicationInsightsName != '' ? applicationInsights.properties.InstrumentationKey : ''
   }
 }
 
@@ -26,7 +26,7 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10
   name: logAnalyticsWorkspaceName
 }
 
-resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing = if (isDaprEnabled && applicationInsightsName != '') {
+resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing = if (daprEnabled && applicationInsightsName != '') {
   name: applicationInsightsName
 }
 

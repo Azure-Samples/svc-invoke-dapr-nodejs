@@ -57,7 +57,7 @@ module appEnv './app/app-env.bicep' = {
     location: location
     logAnalyticsWorkspaceName: monitoring.outputs.logAnalyticsWorkspaceName
     applicationInsightsName: monitoring.outputs.applicationInsightsName
-    isDaprEnabled: true
+    daprEnabled: true
   }
 }
 
@@ -72,7 +72,11 @@ module worker './app/worker.bicep' = {
     containerAppsEnvironmentName: appEnv.outputs.environmentName
     containerRegistryName: appEnv.outputs.registryName
     serviceName: workerServiceName
+    managedIdentityName: security.outputs.managedIdentityName
   }
+  dependsOn:[
+    security
+  ]
 }
 
 // API
@@ -86,7 +90,12 @@ module api './app/api.bicep' = {
     containerAppsEnvironmentName: appEnv.outputs.environmentName
     containerRegistryName: appEnv.outputs.registryName
     serviceName: apiServiceName
+    managedIdentityName: security.outputs.managedIdentityName
   }
+  dependsOn: [
+    worker
+    security
+  ]
 }
 
 // Monitor application with Azure Monitor
@@ -102,6 +111,18 @@ module monitoring './core/monitor/monitoring.bicep' = {
   }
 }
 
+// Setup managed identity
+module security './app/security.bicep' = {
+  name: 'security'
+  scope: rg
+  params: {
+    managedIdentityName: '${abbrs.managedIdentityUserAssignedIdentities}${resourceToken}'
+    location: location
+  }
+}
+
+
+
 // App outputs
 output APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
 output APPLICATIONINSIGHTS_NAME string = monitoring.outputs.applicationInsightsName
@@ -114,3 +135,4 @@ output SERVICE_API_NAME string = api.outputs.SERVICE_API_NAME
 output SERVICE_WORKER_NAME string = worker.outputs.SERVICE_WEB_NAME
 output USE_APIM bool = useAPIM
 output PRINCIPAL_ID string = principalId
+output AZURE_MANAGED_IDENTITY_NAME string = security.outputs.managedIdentityName
