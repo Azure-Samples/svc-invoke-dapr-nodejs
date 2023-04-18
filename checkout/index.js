@@ -10,7 +10,7 @@ async function main() {
         "dapr-app-id": "order-processor"
     }
   };
-  
+
   while (true) {
     for (var i = 1; i <= 20; i++) {
       const order = {
