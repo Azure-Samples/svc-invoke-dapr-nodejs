@@ -1,3 +1,20 @@
+---
+page_type: sample
+languages:
+- azdeveloper
+- nodejs
+- javascript
+- bicep
+products:
+- azure
+- azure-container-apps
+- dapr
+urlFragment: svc-invoke-dapr-nodejs
+name: Microservice communication using service invoke (Node.js)
+description: Create two microservices with Node.js that communicate using Dapr's Service Invocation API. The Service Invocation API enables your applications to communicate reliably and securely by leveraging auto-mTLS and built-in retries
+---
+<!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
+
 # Microservice communication using service invoke (sync)
 
 In this quickstart, you'll create two microservices that communicate using Dapr's Service Invocation API. The Service Invocation API enables your applications to communicate reliably and securely by leveraging auto-mTLS and built-in retries.
