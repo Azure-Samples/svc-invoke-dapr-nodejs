@@ -8,7 +8,6 @@ languages:
 products:
 - azure
 - azure-container-apps
-- dapr
 urlFragment: svc-invoke-dapr-nodejs
 name: Microservice communication using service invoke (Node.js)
 description: Create two microservices with Node.js that communicate using Dapr's Service Invocation API. The Service Invocation API enables your applications to communicate reliably and securely by leveraging auto-mTLS and built-in retries
