@@ -8,7 +8,7 @@ param imageName string = ''
 param serviceName string = 'checkout'
 param managedIdentityName string = ''
 
-module app '../core/host/container-app-worker.bicep' = {
+module app '../core/host/container-app.bicep' = {
   name: '${serviceName}-container-app-module'
   params: {
     name: name
@@ -19,8 +19,8 @@ module app '../core/host/container-app-worker.bicep' = {
     imageName: !empty(imageName) ? imageName : 'nginx:latest'
     daprEnabled: true
     containerName: serviceName
-    managedIdentityEnabled: true
-    managedIdentityName: managedIdentityName
+    identityName: managedIdentityName
+    containerMaxReplicas: 1
   }
 }
 
