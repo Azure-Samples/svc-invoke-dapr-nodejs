@@ -18,6 +18,7 @@ module app '../core/host/container-app.bicep' = {
     containerRegistryName: containerRegistryName
     imageName: !empty(imageName) ? imageName : 'nginx:latest'
     daprEnabled: true
+    ingressEnabled: true
     containerName: serviceName
     identityName: managedIdentityName
     containerMaxReplicas: 1
